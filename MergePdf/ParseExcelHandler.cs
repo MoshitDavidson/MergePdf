@@ -29,7 +29,7 @@ namespace MergePdf
                     var indexCell = (Microsoft.Office.Interop.Excel.Range)ws.Cells[i, 1];
                     int indexValue = int.Parse(indexCell.Value.ToString());
                     var nameCell = (Microsoft.Office.Interop.Excel.Range)ws.Cells[i, 2];
-                    string nameValue = nameCell.Value.ToString().Trim();
+                    string nameValue = nameCell.Value.ToString();
                     if (dic.ContainsKey(indexValue))
                         dic[indexValue].Add(nameValue);
 

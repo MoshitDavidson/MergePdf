@@ -19,7 +19,7 @@ namespace MergePdf
             Console.WriteLine("Which fund do you need?");
             int fundNum = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("which quarter of the year? (1,2,3 or 4), and press enter");
+            Console.WriteLine("For which quarter you are interested to create Pdf files? (1,2,3 or 4), press enter");
             int quarter = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Please insert the number of the rows in excel file, and press enter");
@@ -41,7 +41,7 @@ namespace MergePdf
             {
                 Console.WriteLine($"File {item} created and saved!");
             }
-            Console.WriteLine($"Finish all pdf!! press any key to close");
+            Console.WriteLine($"Finish all Pdf!! press any key to close");
             Console.ReadLine();
         }
 

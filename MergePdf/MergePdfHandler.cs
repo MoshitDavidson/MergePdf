@@ -26,7 +26,6 @@ namespace MergePdf
                     string fullNameToSave = GenerateFullCombinedFileName(quarter, name, fundNum);
                     outputPDFDocument.Save($"{_outputFolder}\\{fullNameToSave}.pdf");
                     yield return fullNameToSave;
-
                 }
             }
         }
@@ -42,39 +41,41 @@ namespace MergePdf
         private string GenerateFullCombinedFileName(int quarter, string investorName, int fundNum)
         {
             DateTime dateTime = GetDateTimeByQuarter(quarter);
-            string fundNumStr = string.Empty;
+            string prefixFullName = string.Empty;
             string text = "Financial Statements as of";
             switch (fundNum)
             {
                 case 1:
-                    fundNumStr = "I";
+                    prefixFullName = "Fund I";
                     text = "combined FS";
-                    //fileName = $"Fund I-{investorName}-combined FS {dateTime:ddMMyy}";
                     break;
                 case 2:
-                    fundNumStr = "II";
-                    //fileName = $"IIF II-{investorName}-Financial Statements as of {dateTime:ddMMyy}";
+                    prefixFullName = "IIF II";
                     break;
                 case 3:
-                    fundNumStr = "III";
-                    //fileName = $"IIF III-{investorName}-Financial Statements as of {dateTime:ddMMyy}";
+                    prefixFullName = "IIF III";
                     break;
                 case 4:
-                    fundNumStr = "IV";
-                    //fileName = $"IIF IV-{investorName}-Financial Statements as of {dateTime:ddMMyy}";
+                    prefixFullName = "IIF IV";
                     break;
             }
-            string fileName = $"IIF {fundNumStr}-{investorName}-{text} {dateTime:ddMMyy}";
+            string fileName = $"{prefixFullName}-{investorName}-{text} {dateTime:ddMMyy}";
             return fileName;
         }
 
-        private DateTime GetDateTimeByQuarter(int quarter) =>
-        quarter switch
+        private DateTime GetDateTimeByQuarter(int quarter)
         {
-            1 => new DateTime(DateTime.Now.Year, 3, DateTime.DaysInMonth(DateTime.Now.Year, 3)),
-            2 => new DateTime(DateTime.Now.Year, 6, DateTime.DaysInMonth(DateTime.Now.Year, 6)),
-            3 => new DateTime(DateTime.Now.Year, 9, DateTime.DaysInMonth(DateTime.Now.Year, 9)),
-            4 => new DateTime(DateTime.Now.Year, 12, DateTime.DaysInMonth(DateTime.Now.Year, 12)),
-        };
+            int currentYear = DateTime.Now.Year;
+            int lastYear = DateTime.Now.AddYears(-1).Year;
+            DateTime dateTimeResult = quarter switch
+            {
+                1 => new DateTime(currentYear, 3, DateTime.DaysInMonth(currentYear, 3)),
+                2 => new DateTime(currentYear, 6, DateTime.DaysInMonth(currentYear, 6)),
+                3 => new DateTime(currentYear, 9, DateTime.DaysInMonth(currentYear, 9)),
+                4 => new DateTime(lastYear, 12, DateTime.DaysInMonth(lastYear, 12)),
+                _ => DateTime.Now,
+            };
+            return dateTimeResult;
+        }
     }
 }
